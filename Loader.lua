@@ -42,3 +42,6 @@ return function()
     
     return MilkHub
 end
+-- Main Script
+local MilkHub = loadstring(game:HttpGet("https://raw.githubusercontent.com/MilkManScripts/MilkHub/main/Loader.lua"))()
+-- This is the ONLY URL you need to customize
