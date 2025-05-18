@@ -1,24 +1,44 @@
--- MilkHub 🐄 Basic Loader
+-- MilkHub 🐄 Loader with Rayfield UI
 return function()
+    -- Load Rayfield
+    local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+    
     local MilkHub = {}
     
-    -- Create a simple window
     function MilkHub:CreateWindow(config)
-        print("[MilkHub] 🐄 Loaded successfully!")
+        -- Initialize Rayfield
+        Rayfield:LoadConfiguration() -- Optional (saves UI settings)
         
-        -- Mock window functions (expand later)
-        local window = {
-            CreateTab = function(tabConfig)
-                local tab = {
-                    CreateSection = function(sectionConfig)
-                        local section = {
-                            CreateToggle = function(name, default, callback)
-                                print("[Toggle] " .. name .. " set to:", default)
-                                -- Just a placeholder; real UI would bind this to a keypress
-                                return { 
-                                    Update = function(newState) 
-                                        callback(newState) 
-                                    end 
-                                }
-                            end,
-                            CreateButton = function(name, callback
+        -- Create the main window
+        local Window = Rayfield:CreateWindow({
+            Name = config.Name or "MilkHub 🐄",
+            LoadingTitle = config.LoadingTitle or "Loading MilkHub...",
+            LoadingSubtitle = config.LoadingSubtitle or "by YourName",
+            ConfigurationSaving = config.ConfigurationSaving or {
+                Enabled = true,
+                FolderName = "MilkHub",
+                FileName = "Config"
+            },
+            Discord = config.Discord or {
+                Enabled = true,
+                Invite = "discord.gg/milkhub",
+                RememberJoins = true
+            },
+            KeySystem = config.KeySystem or false, -- Disable if using MilkMan123 bypass
+            KeySettings = config.KeySettings or {
+                Title = "MilkHub Key System",
+                Subtitle = "Enter your key below",
+                Note = "Join Discord for key (discord.gg/milkhub)",
+                FileName = "MilkHubKey",
+                SaveKey = true,
+                GrabKeyFromSite = false,
+                Key = "MilkMan123" -- Your static key
+            }
+        })
+        
+        -- Make sure the window has CreateTab
+        return Window
+    end
+    
+    return MilkHub
+end
